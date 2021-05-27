@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
 const mongoose = require("mongoose");
@@ -18,6 +19,17 @@ app.use(
     secure: false,
   })
 );
+
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
+app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "public/views"));
+app.set("view engine", "ejs");
+
 
 app.use(currentUserRouter);
 app.use(signInRouter);

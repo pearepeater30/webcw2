@@ -24,6 +24,10 @@ app.use(
   })
 );
 
+app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "public/views"));
+app.set("view engine", "ejs");
+
 app.use("/posts", PostsRoute);
 
 app.get("/", (req, res) => {

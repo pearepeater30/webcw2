@@ -6,6 +6,10 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
+router.get("/api/users/signin", (req, res) => {
+  res.render("signin");
+});
+
 //login route
 router.post(
   "/api/users/signin",
@@ -39,7 +43,7 @@ router.post(
     bcrypt.compare(password, existingUser.password, (err, isMatch) => {
       if (err) throw err;
 
-      //checking if the two password match upon login. 
+      //checking if the two password match upon login.
       if (isMatch) {
         //creating the user's jwt signature
         const userJwt = jwt.sign(
