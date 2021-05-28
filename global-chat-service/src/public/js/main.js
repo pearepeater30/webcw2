@@ -17,7 +17,7 @@ socket.on('message', message => {
 chatForm.addEventListener('submit', e => {
   e.preventDefault();
 
-  const msg = username + ": " + e.target.elements.msg.value;
+  const msg = user.forename + " " + user.surname + ": " + e.target.elements.msg.value;
 
   console.log(msg);
 
