@@ -39,7 +39,6 @@
           <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
         </form>
       </div>
-      <h1><%= user.email %> </h1>
     </div>
 
     <script
@@ -49,8 +48,9 @@
     ></script>
   
     <script src="/socket.io/socket.io.js"></script>
+    <!-- pass the currently logged in user to the frontend JS script -->
     <script type='text/javascript'>
-      var username = <%-JSON.stringify(user.email) %>
+      var user = <%-JSON.stringify(user) %>
     </script>
     <script src="js/main.js"></script>
   </body>

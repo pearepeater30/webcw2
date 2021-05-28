@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema(
       require: true,
     },
 
-    modules_id: {
-      type: String,
+    modules: {
+      type: [String],
       require: false,
     },
 
@@ -19,21 +19,6 @@ const userSchema = new mongoose.Schema(
 
     surname: {
       type: String,
-      require: false,
-    },
-
-    year_joined: {
-      type: Number,
-      require: false,
-    },
-
-    placement: {
-      type: Boolean,
-      require: false,
-    },
-
-    degree_length: {
-      type: Number,
       require: false,
     },
     password: {
@@ -53,9 +38,5 @@ const userSchema = new mongoose.Schema(
 
 const User = mongoose.model("Users", userSchema);
 
-new User({
-  email: "test@test.com",
-  password: "weioagnio;wera",
-});
 
 module.exports = User;
