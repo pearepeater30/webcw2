@@ -40,20 +40,20 @@ const PORT = 7000;
 
 server.listen(PORT, () => console.log(`server running on port ${PORT}`));
 
-//runs when client connects
+//Runs When Client Connects
 io.on("connection", (socket) => {
-  console.log("New WS Connection...");
+  socket.on("joinRoom", ({ room }) => {
+    socket.join(room);
 
-  socket.emit("message", "Welcome to the Chat");
+    socket.emit("message", "Welcome to the Chat");
 
-  socket.broadcast.emit("message", "A user has joined the room");
+    io.to(room).emit("roomUsers", {
+      room: room
+    })
+  })
 
-  socket.on("disconnect", () => {
-    io.emit("message", "A user has left the chat");
-  });
-
-  socket.on("chatMessage", (msg) => {
-    console.log(msg);
-    io.emit("message", msg);
+  //Upon Getting an Event, The Message Sent is Sent to Its Corresponding Room
+  socket.on("chatMessage", (msg,room) => {
+    io.to(room).emit("message", msg);
   });
 });

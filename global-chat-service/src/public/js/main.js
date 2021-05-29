@@ -1,10 +1,22 @@
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
+const roomName = document.getElementById('room-name');
+
 
 const socket = io()
 
-//console log the username of the logged in user
-console.log(user.email);
+// Get username and room from URL
+const { room } = Qs.parse(location.search, {
+  ignoreQueryPrefix: true,
+});
+
+const nameOfUser = user.forename + " " + user.surname;
+
+//Set Name of Page Upon Loading
+roomName.innerText = room;
+
+//Emit Name Of User and the Room the User Connected To
+socket.emit('joinRoom', {nameOfUser, room});
 
 //Display Message in DOM
 socket.on('message', message => {
@@ -14,6 +26,7 @@ socket.on('message', message => {
   chatMessages.scrollTop = chatMessages.scrollHeight
 });
 
+//Add a Event Listner which retrieves the values 
 chatForm.addEventListener('submit', e => {
   e.preventDefault();
 
@@ -21,12 +34,12 @@ chatForm.addEventListener('submit', e => {
 
   console.log(msg);
 
-  socket.emit('chatMessage', msg);
+  socket.emit('chatMessage', msg, room);
 
   e.target.elements.msg.value = '';
 })
 
-// Output message to DOM
+//Display Output message to DOM
 function outputMessage(message) {
   const div = document.createElement('div');
   div.classList.add('message');
