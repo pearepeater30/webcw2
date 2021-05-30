@@ -42,6 +42,9 @@ router.post(
           {
             id: user._id,
             email: user.username,
+            forename: user.forename,
+            surname: user.surname,
+            modules: user.modules
           },
           //key used to encrypt the jwt, need to create a safe one and store it in config file.
           "asdf"
